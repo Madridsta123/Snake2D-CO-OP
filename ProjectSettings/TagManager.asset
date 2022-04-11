@@ -11,6 +11,10 @@ TagManager:
   - Shield
   - Gainer
   - Speed
+  - P1_Body
+  - P2_Body
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX
