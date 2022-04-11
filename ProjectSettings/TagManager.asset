@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Obstacle
   - NormalFood
+  - ScoreBoost
+  - Burner
+  - Shield
+  - Gainer
+  - Speed
   layers:
   - Default
   - TransparentFX
@@ -13,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Powerup
   - 
   - 
   - 

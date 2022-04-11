@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float minx;
     [SerializeField] float maxX;
     float wrapTimer = 0f;
-
+    bool canDie = true;
     private void Start()
     {
         timeDelay = nextStepDelay;
@@ -41,6 +41,27 @@ public class Movement : MonoBehaviour
         }
         DeathCheck();
     }
+    #region Getters
+    public List<Transform> GetSegments()
+    {
+        return segments;
+    }
+    public float GetSpeed()
+    {
+        return nextStepDelay;
+    }
+    public void SetCanDie(bool value)
+    {
+        canDie = value;
+    }
+    #endregion
+    #region Setters
+    public void SetSpeed(float speed)
+    {
+        nextStepDelay = speed;
+    }
+
+    #endregion
     void GetDirection()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) && direction != Vector2.down)
@@ -83,12 +104,29 @@ public class Movement : MonoBehaviour
         {
         }
     }
-    void Grow()
+    public void Grow()
     {
         int listLength = segments.Count;
         GameObject segment = Instantiate(body);
-        segment.transform.position = segments[listLength - 1].transform.position;
+        Vector3 position = segments[listLength - 1].transform.position;
+        segment.transform.position = position;
         segments.Insert(segments.Count, segment.transform);
+        
+    }
+    public void Burn()
+    {
+        if (segments.Count > 3)
+        {
+            Destroy(segments[segments.Count - 1].gameObject);
+            segments.RemoveAt(segments.Count - 1);
+        }
+        else
+        {
+            if (canDie)
+            {
+                KillPlayer();
+            }
+        }
     }
 
     void LevelWrap()
@@ -124,4 +162,9 @@ public class Movement : MonoBehaviour
             }
         }
     }
+    void KillPlayer()
+    {
+        Debug.Log("Death");
+    }
+
 }
